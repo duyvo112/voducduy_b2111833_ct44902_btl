@@ -1,4 +1,4 @@
-const NhanVien = require("../model/nhanvien");
+const NhanVien = require("../model/NhanVien");
 const bcrypt = require("bcrypt");
 const nhanvienController = {
   getAllNhanVien: async (req, res) => {
@@ -12,12 +12,12 @@ const nhanvienController = {
   registerNhanVien: async (req, res) => {
     try {
       if (
-        !req.body.MSNV ||
         !req.body.HoTenNV ||
         !req.body.Password ||
         !req.body.ChucVu ||
         !req.body.DiaChi ||
-        !req.body.SoDienThoai
+        !req.body.SoDienThoai ||
+        !req.body.Email
       ) {
         return res.status(400).json("All fields are required");
       }
@@ -36,7 +36,9 @@ const nhanvienController = {
   },
   loginNhanVien: async (req, res) => {
     try {
-      const nhanvien = await NhanVien.findOne({ MSNV: req.body.MSNV });
+      const nhanvien = await NhanVien.findOne({
+        Email: req.body.Email,
+      });
       if (!nhanvien) {
         return res.status(404).json("Nhan Vien not found");
       }
@@ -68,8 +70,8 @@ const nhanvienController = {
   },
   deleteNhanVien: async (req, res) => {
     try {
-      await NhanVien.findById(req.params.id);
-      res.status(200).json({ message: "Nhan Vien deleted" });
+      await NhanVien.findByIdAndDelete(req.params.id);
+      res.status(200).json("Nhan Vien deleted");
     } catch (error) {
       res.status(500).json(error);
     }

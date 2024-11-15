@@ -14,6 +14,12 @@
                                     giả</a></router-link>
                         </li>
                         <li class="nav-item">
+                            <router-link :to="{ name: 'NhanVien' }" class="text-decoration-none"><a
+                                    class="nav-link btn btn-primary text-white"><font-awesome-icon
+                                        icon="fa-solid fa-user" /> Nhân
+                                    Viên</a></router-link>
+                        </li>
+                        <li class="nav-item">
                             <router-link :to="{ name: 'SachAdmin' }" class="text-decoration-none"><a
                                     class="nav-link btn btn-primary text-white"><font-awesome-icon
                                         icon="fa-solid fa-clipboard-list" />
@@ -24,12 +30,7 @@
                                     class="nav-link btn btn-primary text-white"><font-awesome-icon
                                         icon="fa-solid fa-list" /> Nhà Xuất Bản</a></router-link>
                         </li>
-                        <li class="nav-item">
-                            <router-link :to="{ name: 'NhanVien' }" class="text-decoration-none"><a
-                                    class="nav-link btn btn-primary text-white"><font-awesome-icon
-                                        icon="fa-solid fa-list" /> Nhân
-                                    Viên</a></router-link>
-                        </li>
+
                         <div class="border-top">
                             <li class="nav-item">
                                 <div @click="logout" class="text-decoration-none"><a
@@ -42,7 +43,10 @@
                 </div>
             </nav>
             <div class="col-md-10 p-0">
-                <slot name="content"></slot>
+                <div class="container">
+                    <slot name="content">
+                    </slot>
+                </div>
             </div>
         </div>
     </div>

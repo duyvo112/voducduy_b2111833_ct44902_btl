@@ -1,8 +1,8 @@
 <template>
     <NavigationAdmin>
         <template v-slot:content>
-            <h1>NhanVien</h1>
-            <div class="container">
+            <h1>Nhân viên</h1>
+            <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -30,84 +30,78 @@
                         </tr>
                     </tbody>
                 </table>
-                <button @click="showFormThem = true">Thêm mới</button>
-
-                <div class="modal" :class="{ 'd-block': showFormThem }">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Thêm Nhân Viên</h5>
-                            </div>
-                            <div class="modal-body">
-                                <form @submit.prevent="themNhanVien">
-                                    <div class="form-group">
-                                        <label for="HoTenNV">Họ Tên Nhân Viên</label>
-                                        <input type="text" class="form-control" id="HoTenNV"
-                                            v-model="nhanvienAdd.HoTenNV">
-                                        <label for="SoDienThoai">Số Điện Thoại</label>
-                                        <input type="text" class="form-control" id="SoDienThoai"
-                                            v-model="nhanvienAdd.SoDienThoai">
-                                        <label for="Email">Email</label>
-                                        <input type="text" class="form-control" id="Email" v-model="nhanvienAdd.Email">
-                                        <label for="Password">Mật Khẩu</label>
-                                        <input type="password" class="form-control" id="Password"
-                                            v-model="nhanvienAdd.Password">
-                                        <label for="ChucVu">Chức Vụ</label>
-                                        <input type="text" class="form-control" id="ChucVu"
-                                            v-model="nhanvienAdd.ChucVu">
-                                        <label for="DiaChi">Địa Chỉ</label>
-                                        <input type="text" class="form-control" id="DiaChi"
-                                            v-model="nhanvienAdd.DiaChi">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            @click="showFormThem = false">Đóng</button>
-                                        <button type="submit" class="btn btn-primary">Lưu</button>
-                                    </div>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal" :class="{ 'd-block': isFormSuaVisible }">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Sửa Nhân Viên</h5>
-                            </div>
-                            <div class="modal-body">
-                                <form @submit.prevent="suaNhanVien">
-                                    <div class="form-group">
-                                        <label for="HoTenNV">Họ Tên Nhân Viên</label>
-                                        <input type="text" class="form-control" id="HoTenNV"
-                                            v-model="nhanvienSua.HoTenNV">
-                                        <label for="SoDienThoai">Số Điện Thoại</label>
-                                        <input type="text" class="form-control" id="SoDienThoai"
-                                            v-model="nhanvienSua.SoDienThoai">
-                                        <label for="Email">Email</label>
-                                        <input type="text" class="form-control" id="Email" v-model="nhanvienSua.Email">
-
-                                        <label for="ChucVu">Chức Vụ</label>
-                                        <input type="text" class="form-control" id="ChucVu"
-                                            v-model="nhanvienSua.ChucVu">
-                                        <label for="DiaChi">Địa Chỉ</label>
-                                        <input type="text" class="form-control" id="DiaChi"
-                                            v-model="nhanvienSua.DiaChi">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            @click="isFormSuaVisible = false">Đóng</button>
-                                        <button type="submit" class="btn btn-primary">Lưu</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
+            <button @click="showFormThem = true">Thêm mới</button>
+
+            <div class="modal" :class="{ 'd-block': showFormThem }">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Thêm Nhân Viên</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form @submit.prevent="themNhanVien">
+                                <div class="form-group">
+                                    <label for="HoTenNV">Họ Tên Nhân Viên</label>
+                                    <input type="text" class="form-control" id="HoTenNV" v-model="nhanvienAdd.HoTenNV">
+                                    <label for="SoDienThoai">Số Điện Thoại</label>
+                                    <input type="text" class="form-control" id="SoDienThoai"
+                                        v-model="nhanvienAdd.SoDienThoai">
+                                    <label for="Email">Email</label>
+                                    <input type="text" class="form-control" id="Email" v-model="nhanvienAdd.Email">
+                                    <label for="Password">Mật Khẩu</label>
+                                    <input type="password" class="form-control" id="Password"
+                                        v-model="nhanvienAdd.Password">
+                                    <label for="ChucVu">Chức Vụ</label>
+                                    <input type="text" class="form-control" id="ChucVu" v-model="nhanvienAdd.ChucVu">
+                                    <label for="DiaChi">Địa Chỉ</label>
+                                    <input type="text" class="form-control" id="DiaChi" v-model="nhanvienAdd.DiaChi">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        @click="showFormThem = false">Đóng</button>
+                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal" :class="{ 'd-block': isFormSuaVisible }">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Sửa Nhân Viên</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form @submit.prevent="suaNhanVien">
+                                <div class="form-group">
+                                    <label for="HoTenNV">Họ Tên Nhân Viên</label>
+                                    <input type="text" class="form-control" id="HoTenNV" v-model="nhanvienSua.HoTenNV">
+                                    <label for="SoDienThoai">Số Điện Thoại</label>
+                                    <input type="text" class="form-control" id="SoDienThoai"
+                                        v-model="nhanvienSua.SoDienThoai">
+                                    <label for="Email">Email</label>
+                                    <input type="text" class="form-control" id="Email" v-model="nhanvienSua.Email">
+
+                                    <label for="ChucVu">Chức Vụ</label>
+                                    <input type="text" class="form-control" id="ChucVu" v-model="nhanvienSua.ChucVu">
+                                    <label for="DiaChi">Địa Chỉ</label>
+                                    <input type="text" class="form-control" id="DiaChi" v-model="nhanvienSua.DiaChi">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        @click="isFormSuaVisible = false">Đóng</button>
+                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </template>
     </NavigationAdmin>
 </template>
@@ -172,12 +166,14 @@ export default {
             this.isFormSuaVisible = true
         },
         deleteNhanVien(id) {
-            apiServiceMuonSach
-                .deleteNhanVien(id)
-                .then(() => {
-                    toast.success('Xóa nhân viên thành công')
-                    this.getAllNhanVien()
-                })
+            if (confirm('Bạn có chắc chắn muốn xóa nhân viên này không?')) {
+                apiServiceMuonSach.deleteNhanVien(id).then(() => {
+                    this.getAllNhanVien();
+                    toast.success('Xóa thành công');
+                }).catch(error => {
+                    console.log(error);
+                });
+            }
         },
         suaNhanVien() {
             apiServiceMuonSach
@@ -201,5 +197,10 @@ export default {
 .modal {
     display: none;
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+.table-responsive {
+    max-height: 400px;
+    overflow-y: auto;
 }
 </style>

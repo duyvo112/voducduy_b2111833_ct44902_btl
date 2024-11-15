@@ -131,12 +131,14 @@ export default {
                 })
         },
         deleteNhaXuatBan(maNXB) {
-            apiServiceMuonSach.deleteNhaXuatBan(maNXB).then(() => {
-                toast.success('Xóa nhà xuất bản thành công')
-                this.getNhaXuatBan()
-            }).catch(error => {
-                console.log(error)
-            })
+            if (confirm('Bạn có chắc chắn muốn xóa nhà xuất bản này không?')) {
+                apiServiceMuonSach.deleteNhaXuatBan(maNXB).then(() => {
+                    this.getNhaXuatBan();
+                    toast.success('Xóa thành công');
+                }).catch(error => {
+                    console.log(error);
+                });
+            }
         },
         updateNhaXuatBan() {
             apiServiceMuonSach

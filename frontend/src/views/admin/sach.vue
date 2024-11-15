@@ -1,43 +1,45 @@
 <template>
     <NavigationAdmin>
         <template v-slot:content>
-            <h1>Sach</h1>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Ảnh</th>
-                        <th>Tên Sách</th>
-                        <th>Đơn giá</th>
-                        <th>Số quyển</th>
-                        <th>Tác Giả</th>
-                        <th>Năm XB</th>
-                        <th>Nhà Xuất Bản</th>
-                        <th>Hành Động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(sach, index) in sach" :key="sach._id">
-                        <td>{{ index + 1 }}</td>
-                        <td><img :src="imgUrl(sach.ImgUrl)" :alt="'Ảnh sách: ' + sach.TenSach"
-                                style="width: 100px; height: 100px;">
-                        </td>
-                        <td>{{ sach.TenSach }}</td>
-                        <td>{{ sach.DonGia }}</td>
-                        <td>{{ sach.SoQuyen }}</td>
-                        <td>{{ sach.TacGia }}</td>
-                        <td>{{ sach.NamXuatBan }}</td>
-                        <td>{{ nhaXuatBan.find(nxb => nxb._id === sach.MaNXB).TenNXB }}
-                            <br>
-                            {{ nhaXuatBan.find(nxb => nxb._id === sach.MaNXB).DiaChi }}
-                        </td>
-                        <td>
-                            <button class="btn btn-primary" @click="hienThiFormSua(sach)">Sửa</button>
-                            <button @click="xoaSach(sach._id)" class="btn btn-danger">Xóa</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <h1>Sách</h1>
+            <div class="table-wrapper">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Ảnh</th>
+                            <th>Tên Sách</th>
+                            <th>Đơn giá</th>
+                            <th>Số quyển</th>
+                            <th>Tác Giả</th>
+                            <th>Năm XB</th>
+                            <th>Nhà Xuất Bản</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(sach, index) in sach" :key="sach._id">
+                            <td>{{ index + 1 }}</td>
+                            <td><img :src="imgUrl(sach.ImgUrl)" :alt="'Ảnh sách: ' + sach.TenSach"
+                                    style="width: 100px; height: 100px;">
+                            </td>
+                            <td>{{ sach.TenSach }}</td>
+                            <td>{{ sach.DonGia }}</td>
+                            <td>{{ sach.SoQuyen }}</td>
+                            <td>{{ sach.TacGia }}</td>
+                            <td>{{ sach.NamXuatBan }}</td>
+                            <td>{{ nhaXuatBan.find(nxb => nxb._id === sach.MaNXB).TenNXB }}
+                                <br>
+                                {{ nhaXuatBan.find(nxb => nxb._id === sach.MaNXB).DiaChi }}
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" @click="hienThiFormSua(sach)">Sửa</button>
+                                <button @click="xoaSach(sach._id)" class="btn btn-danger">Xóa</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <button @click="showFormThem = true">Thêm mới</button>
             <div class="modal" :class="{ 'd-block': showFormThem }">
                 <div class="modal-dialog">
@@ -150,16 +152,41 @@ export default {
         }
     },
     methods: {
+        validateForm(form) {
+            const { TenSach, DonGia, SoQuyen, MaNXB, TacGia, NamXuatBan } = form;
+            if (!TenSach || !DonGia || !SoQuyen || !MaNXB || !TacGia || !NamXuatBan) {
+                toast.error('Vui lòng điền đầy đủ thông tin');
+                return false;
+            }
+            if (DonGia < 0) {
+                toast.error('Giá không hợp lệ');
+                return false;
+            }
+            if (SoQuyen < 0) {
+                toast.error('Số quyển không hợp lệ');
+                return false;
+            }
+            if (NamXuatBan < 0) {
+                toast.error('Năm xuất bản không hợp lệ');
+                return false;
+            }
+
+            return true;
+        },
         getAllSach() {
             apiServiceMuonSach.getAllSach().then(res => {
                 this.sach = res.data
             })
         },
         xoaSach(id) {
-            apiServiceMuonSach.deleteSach(id).then(() => {
-                toast.success('Xóa sách thành công')
-                this.getAllSach()
-            })
+            if (confirm('Bạn có chắc chắn muốn xóa sách này không?')) {
+                apiServiceMuonSach.deleteSach(id).then(() => {
+                    this.getAllSach();
+                    toast.success('Xóa thành công');
+                }).catch(error => {
+                    console.log(error);
+                });
+            }
         },
         getNhaXuatBan() {
             apiServiceMuonSach.getNhaXuatBan().then(res => {
@@ -171,6 +198,9 @@ export default {
             return "http://localhost:3000" + imgUrl
         },
         themSach() {
+            if (!this.validateForm(this.sachAdd)) {
+                return;
+            }
             apiServiceMuonSach
                 .addSach(this.sachAdd)
                 .then((res) => {
@@ -198,6 +228,9 @@ export default {
             })
         },
         suaSach() {
+            if (!this.validateForm(this.sachSua)) {
+                return;
+            }
             apiServiceMuonSach.updateSach(this.sachSua._id, this.sachSua)
                 .then(() => {
                     toast.success('Sửa sách thành công')
@@ -223,5 +256,10 @@ export default {
 .modal {
     display: none;
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+.table-wrapper {
+    max-height: 400px;
+    overflow-y: auto;
 }
 </style>

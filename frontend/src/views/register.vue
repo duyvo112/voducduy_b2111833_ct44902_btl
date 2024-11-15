@@ -2,7 +2,7 @@
     <BackgroundComponent>
         <HeaderComponent />
         <div class="register-container container w-25 mt-70 text-white border border-white rounded-3 p-5">
-            <h2 class="text-center mb-5">Register</h2>
+            <h2 class="text-center mb-5">Đăng ký</h2>
             <form id="registerForm" @submit.prevent="register" method="POST">
                 <div class="mb-3">
                     <label for="HoLot" class="form-label">Họ Lót</label>
@@ -40,10 +40,11 @@
                     <input type="email" class="form-control" id="Email" v-model="form.Email" required />
                 </div>
 
-                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="submit" class="btn btn-primary">Đăng ký</button>
                 <div class="mt-3 text-center">
-                    <small>Already have an account?
-                        <router-link :to="{ name: 'LoginPage' }" class="text-white">Login here</router-link></small>
+                    <small>Đã có tài khoản?
+                        <router-link :to="{ name: 'LoginPage' }" class="text-white">Đăng nhập tại
+                            đây</router-link></small>
                 </div>
             </form>
         </div>

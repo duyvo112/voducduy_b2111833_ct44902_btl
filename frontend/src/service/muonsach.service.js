@@ -10,6 +10,12 @@ class apiServiceMuonSach {
   registerDocGia = data => {
     return apiService.post('docgia/register', data)
   }
+  updateDocGia = data => {
+    return apiService.put(`docgia/${data._id}`, data)
+  }
+  deleteDocGia = id => {
+    return apiService.delete(`docgia/${id}`)
+  }
   // Nhân viên
   nhanVienLogin = data => {
     return apiService.post('nhanvien/login', data)
@@ -43,6 +49,9 @@ class apiServiceMuonSach {
   getAllSach = () => {
     return apiService.get('sach')
   }
+  getSachById = id => {
+    return apiService.get(`sach/${id}`)
+  }
   deleteSach = id => {
     return apiService.delete(`sach/${id}`)
   }
@@ -61,7 +70,10 @@ class apiServiceMuonSach {
   }
   // Mượn sách
   muonSach = data => {
-    return apiService.post('muonsach/create', data)
+    return apiService.post('theodoimuonsach/muonsach', data)
+  }
+  getTheodoimuonsach = id => {
+    return apiService.get(`theodoimuonsach/${id}`)
   }
 }
 

@@ -2,23 +2,23 @@
     <BackgroundComponent>
         <HeaderComponent />
         <div class="container text-white w-25 mt-70 border border-white rounded-3 ">
-            <h2 class="text-center mb-5">Login</h2>
+            <h2 class="text-center mb-5">Đăng nhập</h2>
             <form id="loginForm" @submit.prevent="login" method="POST">
                 <div class="mb-3">
                     <input type="email" class="form-control" id="Email" placeholder="Email" v-model="form.Email"
                         required />
                 </div>
                 <div class="mb-3">
-                    <input type="password" class="form-control" id="Password" placeholder="Password"
+                    <input type="password" class="form-control" id="Password" placeholder="Mật khẩu"
                         v-model="form.Password" required />
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary">Đăng nhập</button>
                 </div>
             </form>
             <div class="mt-3 text-center ">
-                <small>Don't have an account?
-                    <router-link :to="{ name: 'RegisterPage' }" class="text-white">Register here</router-link></small>
+                <small>Không có tài khoản?
+                    <router-link :to="{ name: 'RegisterPage' }" class="text-white">Đăng ký tại đây</router-link></small>
             </div>
 
         </div>

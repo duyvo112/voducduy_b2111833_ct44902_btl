@@ -62,7 +62,7 @@ const docgiaController = {
     res.status(200).json(docgia);
   },
   deleteDocGia: async (req, res) => {
-    await docgiaModel.findById(req.params.id);
+    await docgiaModel.findByIdAndDelete(req.params.id);
     res.status(200).json("DocGia deleted");
   },
 };

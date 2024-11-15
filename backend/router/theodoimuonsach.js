@@ -4,9 +4,11 @@ const theodoimuonsachController = require("../controllers/theodoimuonsachControl
 
 router.get("/", theodoimuonsachController.getAllTheodoimuonsach);
 
-router.post("/muonsach/:id", theodoimuonsachController.muonSach);
+router.get("/:id", theodoimuonsachController.getTheodoimuonsachById);
 
-router.put("/trasach/:id", theodoimuonsachController.traSach);
+router.post("/muonsach/", theodoimuonsachController.muonSach);
+
+router.put("/trasach/", theodoimuonsachController.traSach);
 
 router.delete("/:id", theodoimuonsachController.deleteTheodoimuonsach);
 

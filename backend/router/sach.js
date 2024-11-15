@@ -4,6 +4,7 @@ const sachController = require("../controllers/sachController");
 const upload = require("../config/multer");
 
 router.get("/", sachController.getAllSach);
+router.get("/:id", sachController.getSachById);
 router.post("/upload", upload.single("image"), sachController.uploadImage);
 router.post("/create", upload.single("image"), sachController.createSach);
 router.put("/:id", upload.single("image"), sachController.updateSach);

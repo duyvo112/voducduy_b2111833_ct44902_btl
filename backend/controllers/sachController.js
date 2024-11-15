@@ -5,6 +5,10 @@ const sachController = {
     const sachs = await sachModel.find();
     res.status(200).json(sachs);
   },
+  getSachById: async (req, res) => {
+    const sach = await sachModel.findById(req.params.id);
+    res.status(200).json(sach);
+  },
   uploadImage: async (req, res) => {
     try {
       if (req.file) {

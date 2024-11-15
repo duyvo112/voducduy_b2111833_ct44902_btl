@@ -11,26 +11,46 @@ const theodoimuonsachController = {
     }
   },
 
+  getTheodoimuonsachById: async (req, res) => {
+    try {
+      const theodoimuonsach = await theodoimuonsachModel.find({
+        MaDocGia: req.params.id,
+      });
+      res.status(200).json(theodoimuonsach);
+    } catch (error) {
+      res.status(500).json({ message: "Lỗi server", error });
+    }
+  },
+
   muonSach: async (req, res) => {
     try {
-      const sach = await sachModel.findById(req.params.id);
+      const newTheodoimuonsach = new theodoimuonsachModel({
+        MaSach: req.body.MaSach,
+        MaDocGia: req.body.MaDocGia,
+        NgayMuon: req.body.NgayMuon,
+        NgayTra: req.body.NgayTra,
+        TongTien: req.body.TongTien,
+      });
 
-      if (sach.SoQuyen > 0) {
-        const newTheodoimuonsach = new theodoimuonsachModel({
-          ...req.body,
-          MaSach: req.params.id,
-        });
-        const savedTheodoimuonsach = await newTheodoimuonsach.save();
+      const savedTheodoimuonsach = await newTheodoimuonsach.save();
 
-        sach.SoQuyen -= 1;
-        await sach.save();
-        console.log(sach.SoQuyen);
-        return res.status(201).json(savedTheodoimuonsach);
-      } else {
-        return res
-          .status(400)
-          .json({ message: "Số lượng sách không đủ để mượn" });
+      for (const maSach of req.body.MaSach) {
+        if (maSach.SoLuong <= 0) {
+          return res
+            .status(400)
+            .json({ message: "Số lượng sách không hợp lệ" });
+        } else {
+          const sach = await sachModel.findById(maSach.MaSach);
+          if (sach && sach.SoQuyen >= maSach.SoLuong) {
+            sach.SoQuyen -= maSach.SoLuong;
+            await sach.save();
+          } else {
+            return res.status(400).json({ message: "Sách đã hết" });
+          }
+        }
       }
+
+      res.status(201).json(savedTheodoimuonsach);
     } catch (error) {
       res.status(500).json({ message: "Lỗi server", error });
     }
@@ -39,11 +59,7 @@ const theodoimuonsachController = {
   traSach: async (req, res) => {
     try {
       const updatedTheodoimuonsach =
-        await theodoimuonsachModel.findByIdAndUpdate(
-          req.params.id,
-          { NgayTra: req.body.NgayTra },
-          { new: true }
-        );
+        await theodoimuonsachModel.findByIdAndUpdate(Ma);
       const sach = await sachModel.findById(updatedTheodoimuonsach.MaSach);
       sach.SoQuyen += 1;
       await sach.save();

@@ -140,7 +140,6 @@ export default {
                 ImgUrl: ''
             },
             sachSua: {
-
                 TenSach: '',
                 DonGia: 0,
                 SoQuyen: 0,

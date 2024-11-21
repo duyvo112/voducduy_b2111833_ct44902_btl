@@ -165,7 +165,7 @@ export default {
                 }
                 if (book.SoQuyen < existingBook.SoLuong) {
                     toast.error(`Số lượng sách không đủ`);
-                    existingBook.SoLuong -= this.soLuong[index]; // Trừ lại số lượng vừa thêm
+                    existingBook.SoLuong -= this.soLuong[index];
                     return;
                 }
                 sessionStorage.setItem('cart', JSON.stringify(cart));

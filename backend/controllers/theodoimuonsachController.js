@@ -56,19 +56,19 @@ const theodoimuonsachController = {
     }
   },
 
-  traSach: async (req, res) => {
-    try {
-      const updatedTheodoimuonsach =
-        await theodoimuonsachModel.findByIdAndUpdate(Ma);
-      const sach = await sachModel.findById(updatedTheodoimuonsach.MaSach);
-      sach.SoQuyen += 1;
-      await sach.save();
+  // traSach: async (req, res) => {
+  //   try {
+  //     const updatedTheodoimuonsach =
+  //       await theodoimuonsachModel.findByIdAndUpdate(Ma);
+  //     const sach = await sachModel.findById(updatedTheodoimuonsach.MaSach);
+  //     sach.SoQuyen += 1;
+  //     await sach.save();
 
-      res.status(200).json(updatedTheodoimuonsach);
-    } catch (error) {
-      res.status(500).json({ message: "Lỗi server", error });
-    }
-  },
+  //     res.status(200).json(updatedTheodoimuonsach);
+  //   } catch (error) {
+  //     res.status(500).json({ message: "Lỗi server", error });
+  //   }
+  // },
 
   deleteTheodoimuonsach: async (req, res) => {
     try {

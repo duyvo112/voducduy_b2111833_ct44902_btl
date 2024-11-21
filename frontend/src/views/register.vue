@@ -22,7 +22,8 @@
                 </div>
                 <div class="mb-3">
                     <label for="Phai" class="form-label">Giới tính</label>
-                    <select name="Phai" id="Phai" class="form-control" v-model="form.Phai" required>
+                    <select name="Phai" id="Phai" class="form-control" v-model="form.Phai">
+                        <option value="">Chọn giới tính</option>
                         <option value="Nam">Nam</option>
                         <option value="Nữ">Nữ</option>
                     </select>
@@ -76,7 +77,30 @@ export default {
         }
     },
     methods: {
+        validateForm() {
+            if (this.form.Password.length < 8) {
+                toast.error("Mật khẩu phải có ít nhất 8 ký tự");
+                return false;
+            }
+            if (!this.form.Email.includes("@")) {
+                toast.error("Email không hợp lệ");
+                return false;
+            }
+            if (this.form.DienThoai.length != 10) {
+                toast.error("Điện thoại không hợp lệ");
+                return false;
+            }
+            if (this.form.Phai == "") {
+                toast.error("Giới tính không hợp lệ");
+                return false;
+            }
+
+            return true;
+        },
         register() {
+            if (!this.validateForm()) {
+                return;
+            }
             apiServiceMuonSach.registerDocGia(this.form)
                 .then(() => {
                     toast.success("Đăng ký thành công");

@@ -8,7 +8,7 @@ router.get("/:id", theodoimuonsachController.getTheodoimuonsachById);
 
 router.post("/muonsach/", theodoimuonsachController.muonSach);
 
-router.put("/trasach/", theodoimuonsachController.traSach);
+// router.put("/trasach/", theodoimuonsachController.traSach);
 
 router.delete("/:id", theodoimuonsachController.deleteTheodoimuonsach);
 

@@ -63,7 +63,7 @@ export default {
                             this.$router.push({ name: 'HomePage' })
                         })
                         .catch(error => {
-                            toast.error('Login failed', error)
+                            toast.error('Tên đăng nhập hoặc mật khẩu không đúng', error)
                         })
                 })
         }
